@@ -4,7 +4,7 @@ import moment from 'moment';
 (async () => {
 	
 	const path = '../results';
-	const season = '2016-2017-regular';
+	const season = 'regular'; // '2015-2016-regular';
 
 	let dir = fs.readdirSync( path );
 	let gamesFiles = dir.filter(elm => elm.match('game_boxscore'));
@@ -20,7 +20,7 @@ import moment from 'moment';
 
 		const result = {
 			id: parseInt(gameFile.substring(gameFile.indexOf(season) + season.length + 1, gameFile.indexOf('.'))),
-			season: parseInt(season.substring(0, season.indexOf('-'))),
+			//season: parseInt(season.substring(0, season.indexOf('-'))),
 			time: gameTime,
 			location: data.game.location,
 			teamHomeId: parseInt(data.game.homeTeam.ID),

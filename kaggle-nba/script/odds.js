@@ -37,7 +37,7 @@ const getMonth = (mth) => {
 
 parse(records, {}, (err, data) => {
 	//[].concat(data.filter(item => item[6] === '2016/2017')).forEach(game => {
-	data.filter(item => item[6] === '2016/2017').forEach(game => {
+	data.filter(item => (item[6] === '2016/2017') || (item[6] === '2015/2016')).forEach(game => {
 		const start = new Date(game[0], getMonth(game[2]), game[1]).addDays(-2);
 		const end = new Date(game[0], getMonth(game[2]), game[1]).addDays(2);
 

@@ -6,12 +6,12 @@ import fs from 'fs';
 	msf.authenticate("jkentjnr", "JHu3kdfgJtr9");
 
 	const getGameData = id => new Promise((resolve, reject) => {
-		msf.getData('nba', '2016-2017-regular', 'game_boxscore', 'json', { gameid: id, force: true })
+		msf.getData('nba', '2015-2016-regular', 'game_boxscore', 'json', { gameid: id, force: true })
 			.then(data => setTimeout(() => resolve(data), 1200))
 			.catch(e => reject(e));
 	});
 
-	const gameScheduleData = await msf.getData('nba', '2016-2017-regular', 'full_game_schedule', 'json', { force: false });
+	const gameScheduleData = await msf.getData('nba', '2015-2016-regular', 'full_game_schedule', 'json', { force: false });
 
 	const teams = {};
 	for (let i = 0; i < gameScheduleData.fullgameschedule.gameentry.length; i++) {
