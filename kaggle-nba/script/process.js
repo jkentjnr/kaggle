@@ -11,6 +11,18 @@ import moment from 'moment';
 
 	const gamesOutput = { games: [] };
 
+	const getSeason = (dt) => {
+		return (dt.getMonth() < 7)
+			? dt.getFullYear() - 1
+			: dt.getFullYear();
+	}
+
+	const processStats = (stats) => {
+		const result = {};
+		Object.keys(stats).filter(key => !key.endsWith('PerGame')).forEach(key => result[key] = stats[key]['#text']);
+		return result;
+	}
+
 	//[].concat(gamesFiles[0]).forEach(gameFile => {
 	gamesFiles.forEach(gameFile => {
 		const data = JSON.parse(fs.readFileSync(`${path}/${gameFile}`, 'utf8')).gameboxscore;
@@ -22,6 +34,7 @@ import moment from 'moment';
 			id: parseInt(gameFile.substring(gameFile.indexOf(season) + season.length + 1, gameFile.indexOf('.'))),
 			//season: parseInt(season.substring(0, season.indexOf('-'))),
 			time: gameTime,
+			season: getSeason(gameTime),
 			location: data.game.location,
 			teamHomeId: parseInt(data.game.homeTeam.ID),
 			teamHomeCode: data.game.homeTeam.Abbreviation,
@@ -33,7 +46,10 @@ import moment from 'moment';
 				number: parseInt(quarter['@number']),
 				scoreHome: parseInt(quarter['homeScore']),
 				scoreAway: parseInt(quarter['awayScore']),
-			}))
+			})),
+			statsHome: processStats(data.homeTeam.homeTeamStats),
+			statsAway: processStats(data.awayTeam.awayTeamStats),
+
 		};
 
 		//console.log(result);
