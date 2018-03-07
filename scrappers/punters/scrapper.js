@@ -1,5 +1,6 @@
 import fs from 'fs';
 import punters from './lib/punters';
+import moment from 'moment';
 import logger from './lib/logger';
 import stringify from 'csv-stringify/lib/sync';
 
@@ -17,20 +18,19 @@ console.log = function(a='',b='',c='',d='',e='',f='') { //
 	const target = 100;
 	const filename = './output/data.json';
 	const dataOutput = './output/evaluation.csv';
+	const betDataOutput = './output/evaluation_data.csv';
 
 	const params = { 
 		jobs: [
-			//{ sport: punters.SPORT_TYPE_SOCCER, limit: 400 },
+			{ sport: punters.SPORT_TYPE_SOCCER, limit: 400 },
 			{ sport: punters.SPORT_TYPE_AFL },
-			/*
 			{ sport: punters.SPORT_TYPE_RUGBY_LEAGUE },
 			{ sport: punters.SPORT_TYPE_RUGBY_UNION },
 			{ sport: punters.SPORT_TYPE_CAR_RACING },
 			{ sport: punters.SPORT_TYPE_GOLF },
-			{ sport: punters.SPORT_TYPE_TENNIS },
+			{ sport: punters.SPORT_TYPE_TENNIS, limit: 250 },
 			{ sport: punters.SPORT_TYPE_CRICKET },
 			{ sport: punters.SPORT_TYPE_BASKETBALL },
-			*/
 		]
 	};
 
@@ -47,6 +47,7 @@ console.log = function(a='',b='',c='',d='',e='',f='') { //
 
 	const successList = [];
 	const evaluationList = [];
+	let allBetList = [];
 
 	Object.keys(data.sports).forEach(sportKey => {
 		data.sports[sportKey].forEach(event => {
@@ -71,6 +72,7 @@ console.log = function(a='',b='',c='',d='',e='',f='') { //
 				});
 
 				betList.push({
+					id: event.id,
 					name: entry.name,
 					odds,
 					agency,
@@ -84,6 +86,8 @@ console.log = function(a='',b='',c='',d='',e='',f='') { //
 				outlay += entry.outlay;
 			});
 
+			allBetList = allBetList.concat(betList);
+
 			const percentage = outlay / target;
 			const retVal = target - outlay;
 
@@ -92,6 +96,7 @@ console.log = function(a='',b='',c='',d='',e='',f='') { //
 				name: event.name,
 				type: event.type,
 				time: event.time,
+				safetime: moment(event.time).format('YYYYMMDDHHmmss'),
 				outlay: outlay,
 				percentage: percentage,
 				returnAmount: retVal,
@@ -140,8 +145,12 @@ console.log = function(a='',b='',c='',d='',e='',f='') { //
 	evaluationList.sort((a, b) => b.returnAmount - a.returnAmount);
 	const csvData = stringify(evaluationList, { header: true });
 	fs.writeFileSync(dataOutput, csvData);
-
 	logger.log(`CSV Outputted to: ${dataOutput}`);
+
+	const csvBetData = stringify(allBetList, { header: true });
+	fs.writeFileSync(betDataOutput, csvBetData);
+	logger.log(`CSV Outputted to: ${betDataOutput}`);
+
 	logger.log();
 
 })();

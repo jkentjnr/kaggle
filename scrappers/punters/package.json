@@ -12,6 +12,7 @@
     "colors": "^1.1.2",
     "csv": "^2.0.0",
     "gurkha": "^2.0.3",
+    "moment": "^2.21.0",
     "yakuza": "^1.0.7"
   },
   "devDependencies": {
