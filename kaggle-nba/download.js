@@ -1,17 +1,19 @@
 import MySportsFeeds from "mysportsfeeds-node";
 import fs from 'fs';
 
+const gameType = '2017-2018-regular';
+
 (async () => {
 	var msf = new MySportsFeeds("1.2", true);
 	msf.authenticate("jkentjnr", "JHu3kdfgJtr9");
 
 	const getGameData = id => new Promise((resolve, reject) => {
-		msf.getData('nba', '2015-2016-regular', 'game_boxscore', 'json', { gameid: id, force: true })
+		msf.getData('nba', gameType, 'game_boxscore', 'json', { gameid: id, force: true })
 			.then(data => setTimeout(() => resolve(data), 1200))
 			.catch(e => reject(e));
 	});
 
-	const gameScheduleData = await msf.getData('nba', '2015-2016-regular', 'full_game_schedule', 'json', { force: false });
+	const gameScheduleData = await msf.getData('nba', gameType, 'full_game_schedule', 'json', { force: false });
 
 	const teams = {};
 	for (let i = 0; i < gameScheduleData.fullgameschedule.gameentry.length; i++) {

@@ -7,7 +7,7 @@ import moment from 'moment';
 	const season = 'regular'; // '2015-2016-regular';
 
 	let dir = fs.readdirSync( path );
-	let gamesFiles = dir.filter(elm => elm.match('game_boxscore'));
+	let gamesFiles = dir.filter(elm => elm.match('game_boxscore') && !elm.match('2017-2018'));
 
 	const gamesOutput = { games: [] };
 

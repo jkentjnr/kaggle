@@ -117,8 +117,20 @@ const parseStats = (totals, oppTotals) => {
 				statsAway: parseStats(data.away.totals, data.home.totals),
 			};
 
-			console.log(data.code);
-			gamesOutput.games.push(result);
+			const start = moment(gameTime).subtract(8, 'hours').toDate(); // new Date(game[0], getMonth(game[2]), game[1]).addDays(-2);
+			const end = moment(gameTime).add(8, 'hours').toDate(); // new Date(game[0], getMonth(game[2]), game[1]).addDays(2);
+
+			const match = gamesOutput.games.filter(item => 
+				new Date(item.time).getTime() > start.getTime() &&
+				new Date(item.time).getTime() < end.getTime() &&
+				item.teamHomeCode === result.teamHomeCode &&
+				item.teamAwayCode === result.teamAwayCode
+			);
+
+			if (match.length === 0) {
+				gamesOutput.games.push(result);
+				console.log(`${result.id}: ${result.teamAwayCode} @ ${result.teamHomeCode}`);
+			}
 
 		})
 	});
