@@ -1,0 +1,29 @@
+{
+	"key": "general",
+	"target": 100,
+	"limits": {
+		"inplay": false,
+		"ROI": 102,
+		"dimensions": 20,
+		"days": 21
+	},
+	"sports": [
+		{ "sport": "soccer", "limit": 400 },
+		{ "sport": "afl"},
+		{ "sport": "rugbyLeague" },
+		{ "sport": "rugbyUnion" },
+		{ "sport": "carRacing" },
+		{ "sport": "golf" },
+		{ "sport": "tennis", "limit": 250 },
+		{ "sport": "cricket" },
+		{ "sport": "basketball" }
+	],
+	"blacklist": {
+		"agency": [
+			"Betfair"
+		],
+		"event": {
+			"id": []
+		}
+	}
+}
