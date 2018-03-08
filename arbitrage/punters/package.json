@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node ./scrapper.js --config ./config/config.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:force": "babel-node ./scrapper.js --config ./config/config_force.json",
+    "start:betfair": "babel-node ./scrapper.js --config ./config/config_inc_betfair.json",
+    "start:tennis": "babel-node ./scrapper.js --config ./config/config_tennis.json"
   },
   "author": "",
   "license": "ISC",

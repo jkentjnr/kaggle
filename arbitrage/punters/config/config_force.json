@@ -1,6 +1,6 @@
 {
 	"key": "general",
-	"force": false,
+	"force": true,
 	"target": 100,
 	"limits": {
 		"inplay": false,
