@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node ./scrapper.js --config ./config.json",
+    "start": "babel-node ./scrapper.js --config ./config/config.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

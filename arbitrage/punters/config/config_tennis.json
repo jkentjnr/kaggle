@@ -1,0 +1,22 @@
+{
+	"key": "tennis",
+	"force": true,
+	"target": 100,
+	"limits": {
+		"inplay": true,
+		"ROI": 100,
+		"dimensions": 20,
+		"days": 21
+	},
+	"sports": [
+		{ "sport": "tennis", "limit": 250 }
+	],
+	"blacklist": {
+		"agency": [
+			"Betfair"
+		],
+		"event": {
+			"id": []
+		}
+	}
+}

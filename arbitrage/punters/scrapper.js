@@ -19,7 +19,7 @@ import { ArgumentParser } from 'argparse';
 		'--config',
 		{
 			help: 'Loads the configuration file.',
-			defaultValue: 'config.json'
+			defaultValue: 'config/config.json'
 		}
 	);
 
@@ -56,14 +56,14 @@ import { ArgumentParser } from 'argparse';
 	}
 
 	let data = null;
-	if (fs.existsSync(filename)) {
-		data = JSON.parse(fs.readFileSync(filename, 'utf8'));
-	}
-	else {
+	if (config.force || fs.existsSync(filename) === false) {
 		data = await punters.getOdds(params);
 
 		fs.writeFileSync(filename, JSON.stringify(data, null, 4));
-		console.log('File written to disk.'); 
+		console.log('File written to disk.'); 		
+	}
+	else {
+		data = JSON.parse(fs.readFileSync(filename, 'utf8'));
 	}
 
 	// --------------------------------------------------------
