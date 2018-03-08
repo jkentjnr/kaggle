@@ -8,4 +8,5 @@
 ### Running Custom Config
 
 To run a custom config file, execute using the following format:
+
 `babel-node ./scrapper.js --config ./config/config.json`
